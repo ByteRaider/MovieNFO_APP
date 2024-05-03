@@ -1,6 +1,5 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 class CardSwipe extends StatelessWidget {
   const CardSwipe({super.key});
