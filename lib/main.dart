@@ -17,6 +17,9 @@ class MyApp extends StatelessWidget {
         'home': (context) => const HomeScreen(),
         'details': (context) => const DetailsScreen(),
       },
+      theme: ThemeData.dark().copyWith(
+        appBarTheme: const AppBarTheme(color: Color.fromARGB(131, 0, 0, 0)),
+      ),
     );
   }
 }
