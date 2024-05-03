@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class MovieSlider extends StatelessWidget {
   const MovieSlider({super.key});
@@ -6,7 +7,6 @@ class MovieSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: Colors.red,
         height: 300,
         width: double.infinity,
         child: Column(
@@ -36,10 +36,31 @@ class _MoviePoster extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 190,
-      width: 130,
-      color: Colors.green,
-      margin: const EdgeInsets.all(10),
-    );
+        height: 190,
+        width: 130,
+        margin: const EdgeInsets.symmetric(horizontal: 10),
+        child: Column(children: [
+          GestureDetector(
+            onTap: () => Navigator.pushNamed(context, 'details',
+                arguments: 'movie-instance'),
+            child: const ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(20)),
+              child: FadeInImage(
+                placeholder: AssetImage('assets/img/noImage.jpg'),
+                image: NetworkImage('https://picsum.photos/300/400'),
+                height: 140,
+                width: 130,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          const SizedBox(height: 5),
+          const Text(
+            'Movie Title',
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
+          )
+        ]));
   }
 }
