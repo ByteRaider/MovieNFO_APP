@@ -13,6 +13,8 @@ class DetailsScreen extends StatelessWidget {
       SliverList(
         delegate: SliverChildListDelegate([
           _PosterAndTitle(),
+          _Overview(),
+          _Overview(),
         ]),
       )
     ]));
@@ -93,6 +95,20 @@ class _PosterAndTitle extends StatelessWidget {
           ])
         ])
       ]),
+    );
+  }
+}
+
+class _Overview extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+      child: const Text(
+        'movie.overview',
+        textAlign: TextAlign.justify,
+        style: TextStyle(color: Colors.white),
+      ),
     );
   }
 }
