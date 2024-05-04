@@ -10,6 +10,11 @@ class DetailsScreen extends StatelessWidget {
     return Scaffold(
         body: CustomScrollView(slivers: [
       _CustomAppBar(),
+      SliverList(
+        delegate: SliverChildListDelegate([
+          _PosterAndTitle(),
+        ]),
+      )
     ]));
   }
 }
@@ -47,6 +52,47 @@ class _CustomAppBar extends StatelessWidget {
           fadeInCurve: Curves.easeIn,
         ),
       ),
+    );
+  }
+}
+
+class _PosterAndTitle extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(top: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Row(children: [
+        ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: const FadeInImage(
+              placeholder: AssetImage('assets/img/loading.gif'),
+              image: NetworkImage('https://picsum.photos/300/400'),
+              height: 150,
+            )),
+        const SizedBox(width: 20),
+        const Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Text(
+            'movie.title',
+            style: TextStyle(
+                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
+          ),
+          Text(
+            'movie.OriginalTitle',
+            style: TextStyle(
+                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
+          ),
+          Row(children: [
+            Icon(Icons.star_outline, size: 20, color: Colors.yellow),
+            SizedBox(width: 5),
+            Text('movie.releaseDate', style: TextStyle(color: Colors.white)),
+          ])
+        ])
+      ]),
     );
   }
 }
