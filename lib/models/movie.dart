@@ -16,6 +16,13 @@ class Movie {
   double voteAverage;
   int voteCount;
 
+  getFullPosterImg() {
+    if (posterPath != null) {
+      return 'https://image.tmdb.org/t/p/w500$posterPath';
+    }
+    return 'https://wallpapercave.com/wp/wp3160279.jpg';
+  }
+
   Movie({
     required this.adult,
     this.backdropPath,

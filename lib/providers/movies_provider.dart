@@ -1,14 +1,15 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:movies_app/models/now_playing_response.dart';
+import 'package:movies_app/models/models.dart';
 
 class MoviesProvider extends ChangeNotifier {
   final String _apiKey = '7b433b7afe7c810996ff37e1804bb68d';
   final String _baseUrl = 'api.themoviedb.org';
   //String _imageUrl = 'https://image.tmdb.org/t/p/w500';
   final String _language = 'es-ES';
+
+  List<Movie> onDisplayMovies = [];
 
   MoviesProvider() {
     print('MoviesProvider');
@@ -21,5 +22,7 @@ class MoviesProvider extends ChangeNotifier {
     final response = await http.get(url);
     final nowPlayingResponse =
         NowPlayingResponse.fromJson(jsonDecode(response.body));
+    onDisplayMovies = nowPlayingResponse.results;
+    notifyListeners();
   }
 }
