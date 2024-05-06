@@ -10,10 +10,12 @@ class MoviesProvider extends ChangeNotifier {
   final String _language = 'es-ES';
 
   List<Movie> onDisplayMovies = [];
+  List<Movie> popularMovies = [];
 
   MoviesProvider() {
-    print('MoviesProvider');
+    print('MoviesProvider ');
     getNowPlayingMovies();
+    getPopularMovies();
   }
 
   getNowPlayingMovies() async {
@@ -23,6 +25,15 @@ class MoviesProvider extends ChangeNotifier {
     final nowPlayingResponse =
         NowPlayingResponse.fromJson(jsonDecode(response.body));
     onDisplayMovies = nowPlayingResponse.results;
+    notifyListeners();
+  }
+
+  getPopularMovies() async {
+    var url = Uri.https(_baseUrl, '/3/movie/now_playing',
+        {'api_key': _apiKey, 'language': _language, 'page': '1'});
+    final response = await http.get(url);
+    final popularResponse = PopularResponse.fromJson(jsonDecode(response.body));
+    popularMovies = [...popularMovies, ...popularResponse.results];
     notifyListeners();
   }
 }
