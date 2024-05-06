@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:movies_app/models/models.dart';
 
 class MovieSlider extends StatelessWidget {
-  const MovieSlider({super.key});
+  final List<Movie> movies;
+  final String? title;
+  const MovieSlider({super.key, this.title, required this.movies});
 
   @override
   Widget build(BuildContext context) {
@@ -12,18 +15,20 @@ class MovieSlider extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Text(
-                'Popular',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            if (title != null)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text(
+                  title!,
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold),
+                ),
               ),
-            ),
             Expanded(
                 child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: 30,
-              itemBuilder: (_, int index) => const _MoviePoster(),
+              itemCount: movies.length,
+              itemBuilder: (_, int index) => _MoviePoster(movies[index]),
             )),
           ],
         ));
@@ -31,7 +36,8 @@ class MovieSlider extends StatelessWidget {
 }
 
 class _MoviePoster extends StatelessWidget {
-  const _MoviePoster();
+  final Movie movie;
+  const _MoviePoster(this.movie);
 
   @override
   Widget build(BuildContext context) {
@@ -43,11 +49,11 @@ class _MoviePoster extends StatelessWidget {
           GestureDetector(
             onTap: () => Navigator.pushNamed(context, 'details',
                 arguments: 'movie-instance'),
-            child: const ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(20)),
+            child: ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(20)),
               child: FadeInImage(
-                placeholder: AssetImage('assets/img/noImage.jpg'),
-                image: NetworkImage('https://picsum.photos/300/400'),
+                placeholder: const AssetImage('assets/img/noImage.jpg'),
+                image: NetworkImage(movie.getFullPosterImg()),
                 height: 140,
                 width: 130,
                 fit: BoxFit.cover,
@@ -55,8 +61,8 @@ class _MoviePoster extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 5),
-          const Text(
-            'Movie Title',
+          Text(
+            movie.title,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,

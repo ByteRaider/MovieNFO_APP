@@ -13,7 +13,6 @@ class MoviesProvider extends ChangeNotifier {
   List<Movie> popularMovies = [];
 
   MoviesProvider() {
-    print('MoviesProvider ');
     getNowPlayingMovies();
     getPopularMovies();
   }
@@ -29,7 +28,7 @@ class MoviesProvider extends ChangeNotifier {
   }
 
   getPopularMovies() async {
-    var url = Uri.https(_baseUrl, '/3/movie/now_playing',
+    var url = Uri.https(_baseUrl, '/3/movie/popular',
         {'api_key': _apiKey, 'language': _language, 'page': '1'});
     final response = await http.get(url);
     final popularResponse = PopularResponse.fromJson(jsonDecode(response.body));
