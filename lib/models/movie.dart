@@ -20,6 +20,14 @@ class Movie {
     if (posterPath != null) {
       return 'https://image.tmdb.org/t/p/w500$posterPath';
     }
+
+    return 'https://wallpapercave.com/wp/wp3160279.jpg';
+  }
+
+  getFullBackdropPath() {
+    if (backdropPath != null) {
+      return 'https://image.tmdb.org/t/p/w500$backdropPath';
+    }
     return 'https://wallpapercave.com/wp/wp3160279.jpg';
   }
 
