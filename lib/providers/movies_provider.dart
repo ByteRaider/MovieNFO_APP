@@ -35,19 +35,25 @@ class MoviesProvider extends ChangeNotifier {
 
   getPopularMovies() async {
     _popularPage++;
+    //await jsonData
     final jsonData = await _getJsonData(
       '/3/movie/popular',
       _popularPage,
     );
+    //parse jsonData
     final popularResponse = PopularResponse.fromJson(jsonDecode(jsonData));
     popularMovies = [...popularMovies, ...popularResponse.results];
     notifyListeners();
   }
 
   Future<List<Cast>> getMovieCast(int movieId) async {
+    //check cache
+    if (moviesCast.containsKey(movieId)) return moviesCast[movieId]!;
+    //await jsonData
     final jsonData = await _getJsonData('/3/movie/$movieId/credits');
-    final creditsResponse =
-        CreditsResponse.fromJson(jsonData as Map<String, dynamic>);
+    //parse jsonData
+    final creditsResponse = CreditsResponse.fromJson(jsonDecode(jsonData));
+    //add to cache
     moviesCast[movieId] = creditsResponse.cast;
     return creditsResponse.cast;
   }

@@ -22,15 +22,18 @@ class CastingCards extends StatelessWidget {
               child: const CircularProgressIndicator(),
             );
           }
+          final List<Cast> cast = snapshot.data!;
           return Container(
             constraints: const BoxConstraints(maxWidth: 150),
             margin: const EdgeInsets.only(top: 30),
             width: double.infinity,
             height: 180,
             child: ListView.builder(
-              itemCount: 10,
+              itemCount: cast.length,
               scrollDirection: Axis.horizontal,
-              itemBuilder: (_, int index) => _CastCard(),
+              itemBuilder: (_, int index) => _CastCard(
+                actor: cast[index],
+              ),
             ),
           );
         });
@@ -38,29 +41,35 @@ class CastingCards extends StatelessWidget {
 }
 
 class _CastCard extends StatelessWidget {
+  final Cast actor;
+
+  const _CastCard({required this.actor});
+
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 10),
       width: 110,
       height: 100,
-      child: const Column(children: [
+      child: Column(children: [
         ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(20)),
+            borderRadius: const BorderRadius.all(Radius.circular(20)),
             child: FadeInImage(
-              placeholder: AssetImage('assets/img/loading.gif'),
-              image: NetworkImage('https://picsum.photos/300/400'),
+              placeholder: const AssetImage('assets/img/loading.gif'),
+              image: NetworkImage(actor.fullProfilePath),
               height: 140,
               width: 100,
               fit: BoxFit.cover,
             )),
-        SizedBox(height: 5),
-        Text(
-          'actor.name',
-          overflow: TextOverflow.ellipsis,
-          maxLines: 2,
-          textAlign: TextAlign.center,
-        ),
+        const SizedBox(height: 5),
+        SingleChildScrollView(
+          child: Text(
+            actor.name,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
+            textAlign: TextAlign.center,
+          ),
+        )
       ]),
     );
   }

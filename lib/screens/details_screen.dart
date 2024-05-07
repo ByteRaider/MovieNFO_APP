@@ -104,10 +104,11 @@ class _PosterAndTitle extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               maxLines: 2,
             ),
-            const Row(children: [
-              Icon(Icons.star_outline, size: 20, color: Colors.yellow),
-              SizedBox(width: 5),
-              Text('movie.releaseDate', style: TextStyle(color: Colors.white)),
+            Row(children: [
+              const Icon(Icons.star_outline, size: 20, color: Colors.yellow),
+              const SizedBox(width: 5),
+              Text(movie.releaseDate ?? 'no release date',
+                  style: const TextStyle(color: Colors.white)),
             ])
           ]),
         )
