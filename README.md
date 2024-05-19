@@ -76,9 +76,13 @@
 <h3>License</h3>
 <p>This project is licensed under the MIT License - see the LICENSE file for details.</p>
 
+### Acknowledgement:
 <ul>
   <li><a href="https://www.themoviedb.org/">The Movie Database (TMDb)</a> for providing the API used in this application.</li>
-  <li><a href="https://fernando-herrera.com/">Fernando herrera</a> for mentoring
-  <li>Flutter and Dart communities for their invaluable contributions to the development ecosystem.</li>
+  <li>[Flutter.dev](https://flutter.dev/docs)</li>
+  <li> [dart.dev](https://dart.dev/gudes)</li>
+  <li>[Provider Package](https://pub.dev/packages/provider)</li>
+  <li>[Mentoring](https://fernando-herrera.com/)</li>
 </ul>
 </article>
+
